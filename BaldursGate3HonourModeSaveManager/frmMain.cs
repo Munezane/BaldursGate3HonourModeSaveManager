@@ -19,6 +19,7 @@ namespace BaldursGate3HonourModeSaveManager
             if (configManager.HonourModeSaveLocation != null)
             {
                 txtPathToHonourModeSave.Text = configManager.HonourModeSaveLocation;
+                btnBackupCurrentSave.Enabled = true;
             }
             if (configManager.BackupSaveLocation != null)
             {
@@ -33,7 +34,6 @@ namespace BaldursGate3HonourModeSaveManager
 
         private void RefreshGridSaves()
         {
-            //TO DO! Build data set for grid!
             try
             {
                 dgvSaves.DataSource = BaldursGate3SaveFileManager.GetBackupSaveItems(configManager.BackupSaveLocation);
@@ -54,10 +54,13 @@ namespace BaldursGate3HonourModeSaveManager
             {
                 txtPathToHonourModeSave.Text = fbdMain.SelectedPath;
                 configManager.HonourModeSaveLocation = txtPathToHonourModeSave.Text;
-                if (!configManager.SaveConfig())
+                try
                 {
-                    //alert user failed to save to config!
-                    AlertError("Failed to save to config file");
+                    configManager.SaveConfig();
+                }
+                catch (Exception ex)
+                {
+                    AlertError($"Failed to save to config file: {ex.Message}");
                 }
             }
         }
@@ -69,10 +72,13 @@ namespace BaldursGate3HonourModeSaveManager
             {
                 txtBackupSaveLocation.Text = fbdMain.SelectedPath;
                 configManager.BackupSaveLocation = txtBackupSaveLocation.Text;
-                if (!configManager.SaveConfig())
+                try
                 {
-                    //alert user failed to save to config!
-                    AlertError("Failed to save to config file");
+                    configManager.SaveConfig();
+                }
+                catch (Exception ex)
+                {
+                    AlertError($"Failed to save to config file: {ex.Message}");
                 }
             }
         }

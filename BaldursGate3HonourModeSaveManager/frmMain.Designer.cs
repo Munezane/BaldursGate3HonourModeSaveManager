@@ -36,12 +36,12 @@
             btnBackupSaveLocation = new Button();
             txtBackupSaveLocation = new TextBox();
             dgvSaves = new DataGridView();
-            SaveName = new DataGridViewTextBoxColumn();
-            RestoreSave = new DataGridViewButtonColumn();
             btnUndoSaveRestore = new Button();
             btnBackupCurrentSave = new Button();
             lblBackups = new Label();
             btnRefreshBackupGrid = new Button();
+            SaveName = new DataGridViewTextBoxColumn();
+            RestoreSave = new DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)dgvSaves).BeginInit();
             SuspendLayout();
             // 
@@ -117,19 +117,6 @@
             dgvSaves.TabIndex = 6;
             dgvSaves.CellContentClick += dgvSaves_CellContentClick;
             // 
-            // SaveName
-            // 
-            SaveName.HeaderText = "Name";
-            SaveName.Name = "SaveName";
-            SaveName.ReadOnly = true;
-            SaveName.Width = 600;
-            // 
-            // RestoreSave
-            // 
-            RestoreSave.HeaderText = "Restore Save";
-            RestoreSave.Name = "RestoreSave";
-            RestoreSave.ReadOnly = true;
-            // 
             // btnUndoSaveRestore
             // 
             btnUndoSaveRestore.Enabled = false;
@@ -171,6 +158,21 @@
             btnRefreshBackupGrid.UseVisualStyleBackColor = true;
             btnRefreshBackupGrid.Click += btnRefreshBackupGrid_Click;
             // 
+            // SaveName
+            // 
+            SaveName.DataPropertyName = "Path";
+            SaveName.HeaderText = "Name";
+            SaveName.Name = "SaveName";
+            SaveName.ReadOnly = true;
+            SaveName.Width = 600;
+            // 
+            // RestoreSave
+            // 
+            RestoreSave.HeaderText = "Restore Save";
+            RestoreSave.Name = "RestoreSave";
+            RestoreSave.ReadOnly = true;
+            RestoreSave.Text = "";
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -208,10 +210,10 @@
         private TextBox txtBackupSaveLocation;
         private DataGridView dgvSaves;
         private Button btnUndoSaveRestore;
-        private DataGridViewTextBoxColumn SaveName;
-        private DataGridViewButtonColumn RestoreSave;
         private Button btnBackupCurrentSave;
         private Label lblBackups;
         private Button btnRefreshBackupGrid;
+        private DataGridViewTextBoxColumn SaveName;
+        private DataGridViewButtonColumn RestoreSave;
     }
 }

@@ -38,7 +38,8 @@ namespace BaldursGate3HonourModeSaveManager
                     Directory.CreateDirectory(backupPath);
                 }
                 //Copy all the files & Replaces any files with the same name
-                string backupSubFolder = Path.Combine(backupPath, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                string backupSubFolder = Path.Combine(backupPath, DateTime.Now.ToString("yyyy-MM-dd HHmmss"));
+                Directory.CreateDirectory(backupSubFolder);
                 //should be 2 files: the lsv and a png for thumbnail
                 foreach (string honourFile in Directory.GetFiles(honourModeSavePath, "*.*"))
                 {
