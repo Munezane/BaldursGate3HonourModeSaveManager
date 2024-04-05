@@ -1,4 +1,6 @@
-﻿namespace BaldursGate3HonourModeSaveManager
+﻿
+
+namespace BaldursGate3HonourModeSaveManager
 {
     partial class frmMain
     {
@@ -28,6 +30,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            dgvSaves = new DataGridView();
+            SavePreview = new DataGridViewImageColumn();
+            SaveCreatedAt = new DataGridViewTextBoxColumn();
+            SaveName = new DataGridViewTextBoxColumn();
+            RestoreSave = new DataGridViewButtonColumn();
             fbdMain = new FolderBrowserDialog();
             txtPathToHonourModeSave = new TextBox();
             btnPathToHonourSave = new Button();
@@ -35,15 +42,60 @@
             lblBackupSaveLocation = new Label();
             btnBackupSaveLocation = new Button();
             txtBackupSaveLocation = new TextBox();
-            dgvSaves = new DataGridView();
             btnUndoSaveRestore = new Button();
             btnBackupCurrentSave = new Button();
             lblBackups = new Label();
             btnRefreshBackupGrid = new Button();
-            SaveName = new DataGridViewTextBoxColumn();
-            RestoreSave = new DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)dgvSaves).BeginInit();
             SuspendLayout();
+            // 
+            // dgvSaves
+            // 
+            dgvSaves.AutoGenerateColumns = false;
+            dgvSaves.AllowUserToAddRows = false;
+            dgvSaves.AllowUserToDeleteRows = false;
+            dgvSaves.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvSaves.Columns.AddRange(new DataGridViewColumn[] { SavePreview, SaveCreatedAt, SaveName, RestoreSave });
+            dgvSaves.EditMode = DataGridViewEditMode.EditProgrammatically;
+            dgvSaves.Enabled = false;
+            dgvSaves.Location = new Point(12, 219);
+            dgvSaves.MultiSelect = false;
+            dgvSaves.Name = "dgvSaves";
+            dgvSaves.ReadOnly = true;
+            dgvSaves.Size = new Size(776, 189);
+            dgvSaves.TabIndex = 6;
+            dgvSaves.CellContentClick += dgvSaves_CellContentClick;
+            dgvSaves.DataBindingComplete += dgvSaves_DataBindingComplete;
+            // 
+            // SavePreview
+            // 
+            SavePreview.HeaderText = "Image";
+            SavePreview.Name = "SavePreview";
+            SavePreview.ReadOnly = true;
+            // 
+            // SaveCreatedAt
+            // 
+            SaveCreatedAt.DataPropertyName = "DateCreatedString";
+            SaveCreatedAt.HeaderText = "Created at";
+            SaveCreatedAt.Name = "SaveCreatedAt";
+            SaveCreatedAt.ReadOnly = true;
+            SaveCreatedAt.SortMode = DataGridViewColumnSortMode.Programmatic;
+            // 
+            // SaveName
+            // 
+            SaveName.DataPropertyName = "Path";
+            SaveName.HeaderText = "Name";
+            SaveName.Name = "SaveName";
+            SaveName.ReadOnly = true;
+            SaveName.Width = 400;
+            // 
+            // RestoreSave
+            // 
+            RestoreSave.HeaderText = "Restore Save";
+            RestoreSave.Name = "RestoreSave";
+            RestoreSave.ReadOnly = true;
+            RestoreSave.Text = "Restore save";
+            RestoreSave.UseColumnTextForButtonValue = true;
             // 
             // fbdMain
             // 
@@ -103,20 +155,6 @@
             txtBackupSaveLocation.Size = new Size(696, 23);
             txtBackupSaveLocation.TabIndex = 4;
             // 
-            // dgvSaves
-            // 
-            dgvSaves.AllowUserToAddRows = false;
-            dgvSaves.AllowUserToDeleteRows = false;
-            dgvSaves.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvSaves.Columns.AddRange(new DataGridViewColumn[] { SaveName, RestoreSave });
-            dgvSaves.Enabled = false;
-            dgvSaves.Location = new Point(12, 219);
-            dgvSaves.Name = "dgvSaves";
-            dgvSaves.ReadOnly = true;
-            dgvSaves.Size = new Size(776, 189);
-            dgvSaves.TabIndex = 6;
-            dgvSaves.CellContentClick += dgvSaves_CellContentClick;
-            // 
             // btnUndoSaveRestore
             // 
             btnUndoSaveRestore.Enabled = false;
@@ -158,21 +196,6 @@
             btnRefreshBackupGrid.UseVisualStyleBackColor = true;
             btnRefreshBackupGrid.Click += btnRefreshBackupGrid_Click;
             // 
-            // SaveName
-            // 
-            SaveName.DataPropertyName = "Path";
-            SaveName.HeaderText = "Name";
-            SaveName.Name = "SaveName";
-            SaveName.ReadOnly = true;
-            SaveName.Width = 600;
-            // 
-            // RestoreSave
-            // 
-            RestoreSave.HeaderText = "Restore Save";
-            RestoreSave.Name = "RestoreSave";
-            RestoreSave.ReadOnly = true;
-            RestoreSave.Text = "";
-            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -198,7 +221,6 @@
             ResumeLayout(false);
             PerformLayout();
         }
-
         #endregion
 
         private FolderBrowserDialog fbdMain;
@@ -213,6 +235,8 @@
         private Button btnBackupCurrentSave;
         private Label lblBackups;
         private Button btnRefreshBackupGrid;
+        private DataGridViewImageColumn SavePreview;
+        private DataGridViewTextBoxColumn SaveCreatedAt;
         private DataGridViewTextBoxColumn SaveName;
         private DataGridViewButtonColumn RestoreSave;
     }

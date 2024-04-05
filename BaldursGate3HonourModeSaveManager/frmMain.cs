@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 namespace BaldursGate3HonourModeSaveManager
 {
     public partial class frmMain : Form
@@ -105,26 +107,77 @@ namespace BaldursGate3HonourModeSaveManager
 
         private void AlertError(string message)
         {
-            //TO DO! GUI!
-            //
+            MessageBox.Show(message, "Error", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
             Console.WriteLine(message);
         }
         private void AlertSuccess(string message)
         {
-            //TO DO! GUI!
-            //
+            MessageBox.Show(message, "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
             Console.WriteLine(message);
         }
 
+
         private void dgvSaves_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // if sender is button? Or if e.columnIndex is button
-            //if (sender)
-            //{
-            ////restore backup
-            ///enable undo button
-            ///refresh grid
-            //}
+            if (e.RowIndex < 0)
+            {
+                //clicked on header, do nothing
+                return;
+            }
+            DataGridView grid = ((DataGridView)sender);
+            if (grid[e.ColumnIndex, e.RowIndex] is DataGridViewButtonCell)
+            {
+                var dataItem = (BackupSaveItem)grid.Rows[e.RowIndex].DataBoundItem;
+                var confirmResult = MessageBox.Show($"Are you sure you want to restore the save at {dataItem.Path}? You should quit to the main menu first.",
+                                     "Confirm restore",
+                                     MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.Yes)
+                {
+                    // If 'Yes'...
+                    BaldursGate3SaveFileManagerResult result = BaldursGate3SaveFileManager.RestoreBackup(configManager.HonourModeSaveLocation, dataItem.Path);
+
+                    if (result.Success.GetValueOrDefault())
+                    {
+                        //TO DO:
+                        //btnUndoSaveRestore.Enabled = true; //NOT IMPLEMENTED YET!
+
+                        AlertSuccess("Save restored. You may continue your game");
+                        RefreshGridSaves();
+                    }
+                    else
+                    {
+                        AlertError($"Restoration failed: {result.ErrorMessage}");
+                    }
+                    
+                }
+                else
+                {
+                    // If 'No', do nothing
+                }
+            }
+        }
+
+        private void dgvSaves_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DataGridView grid = (DataGridView)sender;
+            foreach(DataGridViewRow row in grid.Rows)
+            {
+                BackupSaveItem dataItem = (BackupSaveItem)row.DataBoundItem;
+                if (dataItem.SaveThumbnail != null)
+                {
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        if (cell.GetType() == typeof(DataGridViewImageCell))
+                        {
+                            //set the image!
+                            DataGridViewImageCell imageCell = (DataGridViewImageCell)cell;
+                            imageCell.Value = dataItem.SaveThumbnail;
+                            break;
+                        }
+                    }
+                }
+                
+            }
         }
     }
 }
