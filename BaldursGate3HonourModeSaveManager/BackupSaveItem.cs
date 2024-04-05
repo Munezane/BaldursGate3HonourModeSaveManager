@@ -18,11 +18,7 @@ namespace BaldursGate3HonourModeSaveManager
                 return DateCreated.ToString("dd/MM/yyyy HH:mm:ss");
             } 
         }
-        [System.ComponentModel.Browsable(false)]
         public DateTime DateCreated { get; set; } = DateTime.MinValue;
-        [System.ComponentModel.Browsable(false)]
-        public string IconPath { get; set; } = string.Empty;
-        [System.ComponentModel.Browsable(false)]
         public Image? SaveThumbnail { get; set; } = null;
     }
 }

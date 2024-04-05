@@ -117,7 +117,6 @@ namespace BaldursGate3HonourModeSaveManager
                 {
                     Path = backupDirectory,
                     DateCreated = backupInfo.CreationTime,
-                    IconPath = iconPath,
                     SaveThumbnail = thumbnail
                 });
             }
